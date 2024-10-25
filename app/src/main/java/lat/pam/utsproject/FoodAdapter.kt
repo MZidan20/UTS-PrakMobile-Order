@@ -23,7 +23,6 @@ class FoodAdapter(
         holder.foodDescription.text = food.description
         holder.foodImage.setImageResource(food.imageResourceId)
 
-        // Set click listener to notify when an item is selected
         holder.itemView.setOnClickListener {
             onFoodSelected(food.name)
         }

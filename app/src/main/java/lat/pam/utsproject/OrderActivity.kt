@@ -21,23 +21,22 @@ class OrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
 
-        // Initialize views
+
         foodNameTextView = findViewById(R.id.etFoodName)
         servingsEditText = findViewById(R.id.etServings)
         nameEditText = findViewById(R.id.etName)
         notesEditText = findViewById(R.id.etNotes)
         orderButton = findViewById(R.id.btnOrder)
 
-        // Set up click listener to open ListFoodActivity
+
         foodNameTextView.setOnClickListener {
             val intent = Intent(this, ListFoodActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_SELECT_FOOD)
         }
 
-        // Set up click listener for the "Place Order" button
+
         orderButton.setOnClickListener {
             if (isValidOrder()) {
-                // Start ConfirmationActivity with order details
                 val intent = Intent(this, ConfirmationActivity::class.java).apply {
                     putExtra("foodName", foodNameTextView.text.toString())
                     putExtra("servings", servingsEditText.text.toString())
@@ -46,12 +45,12 @@ class OrderActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             } else {
-                // Show an error if any fields are empty
+
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Apply insets for edge-to-edge display
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -59,7 +58,7 @@ class OrderActivity : AppCompatActivity() {
         }
     }
 
-    // Check that all fields are filled
+
     private fun isValidOrder(): Boolean {
         return foodNameTextView.text.isNotEmpty() &&
                 servingsEditText.text.isNotEmpty() &&
@@ -67,7 +66,7 @@ class OrderActivity : AppCompatActivity() {
                 notesEditText.text.isNotEmpty()
     }
 
-    // Handle the result from ListFoodActivity
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_SELECT_FOOD && resultCode == RESULT_OK) {

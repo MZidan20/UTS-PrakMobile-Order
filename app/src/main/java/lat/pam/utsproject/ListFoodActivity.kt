@@ -18,7 +18,7 @@ class ListFoodActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Prepare food data
+
         foodList = listOf(
             Food("Batagor", "Batagor asli enak dari Bandung", R.drawable.batagor),
             Food("Black Salad", "Salad segar yang dibuat secara langsung", R.drawable.black_salad),
@@ -30,13 +30,13 @@ class ListFoodActivity : AppCompatActivity() {
             Food("Nasi Goreng Kampung", "Nasi yang digoreng dengan suhu tinggu dengan toping khas ayam kampung", R.drawable.nasigoreng )
         )
 
-        // Initialize adapter with a callback to return the selected food name
+
         adapter = FoodAdapter(foodList) { selectedFoodName ->
             val resultIntent = Intent().apply {
                 putExtra("selectedFoodName", selectedFoodName)
             }
             setResult(RESULT_OK, resultIntent)
-            finish() // End activity and return to OrderActivity
+            finish()
         }
         recyclerView.adapter = adapter
     }
