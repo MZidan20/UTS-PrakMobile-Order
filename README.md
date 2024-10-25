@@ -1,3 +1,3 @@
-Nama : Muhamad Zida
-Kelas : Praktikum Mobile -E
-Update Fituro Login, OrderActivity, ListFood, ConfirmActivity
+Nama : Muhamad Zida <br/>
+Kelas : Praktikum Mobile - E <br/>
+Update Fituro Login, OrderActivity, ListFood, ConfirmActivity <br/>
