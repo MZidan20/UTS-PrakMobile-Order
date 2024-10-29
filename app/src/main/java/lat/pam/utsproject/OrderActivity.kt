@@ -27,7 +27,6 @@ class OrderActivity : AppCompatActivity() {
         notesEditText = findViewById(R.id.etNotes)
         orderButton = findViewById(R.id.btnOrder)
 
-        // Automatically open ListFoodActivity if no food is selected
         if (foodNameTextView.text.isEmpty()) {
             openFoodSelection()
         }
