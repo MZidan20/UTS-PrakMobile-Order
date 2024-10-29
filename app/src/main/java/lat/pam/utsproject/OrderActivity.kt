@@ -21,19 +21,20 @@ class OrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
 
-
         foodNameTextView = findViewById(R.id.etFoodName)
         servingsEditText = findViewById(R.id.etServings)
         nameEditText = findViewById(R.id.etName)
         notesEditText = findViewById(R.id.etNotes)
         orderButton = findViewById(R.id.btnOrder)
 
-
-        foodNameTextView.setOnClickListener {
-            val intent = Intent(this, ListFoodActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_SELECT_FOOD)
+        // Automatically open ListFoodActivity if no food is selected
+        if (foodNameTextView.text.isEmpty()) {
+            openFoodSelection()
         }
 
+        foodNameTextView.setOnClickListener {
+            openFoodSelection()
+        }
 
         orderButton.setOnClickListener {
             if (isValidOrder()) {
@@ -45,19 +46,15 @@ class OrderActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             } else {
-
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
+    private fun openFoodSelection() {
+        val intent = Intent(this, ListFoodActivity::class.java)
+        startActivityForResult(intent, REQUEST_CODE_SELECT_FOOD)
+    }
 
     private fun isValidOrder(): Boolean {
         return foodNameTextView.text.isNotEmpty() &&
@@ -66,12 +63,11 @@ class OrderActivity : AppCompatActivity() {
                 notesEditText.text.isNotEmpty()
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_SELECT_FOOD && resultCode == RESULT_OK) {
             val selectedFoodName = data?.getStringExtra("selectedFoodName")
-            foodNameTextView.text = selectedFoodName
+            foodNameTextView.text = selectedFoodName // Update selected food name here
         }
     }
 
